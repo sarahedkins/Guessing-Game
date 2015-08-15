@@ -2,9 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Guessing Game</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/my-style.css">
 </head>
 <body>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1> Guess the Number </h1>
+        <p> I'm thinking of a number between 1 and 100 inclusive. Give it a go! </p>
+
+    <div class="well" id="guess_well">
+        <form>
+            <div class="form-group form-group-lg">
+                <label for="inputNum">Guess:</label>
+                <input type="number" class="form-control input-lg" id="inputNum" placeholder="Enter a number...">
+            </div>
+        </form>
+        <button class="btn btn-success btn-lg"> Submit Your Guess  </button>
+    </div>
+
+        <div class="well" id="options_well">
+            <button class="btn btn-warning btn-sm"> Previous Guesses  </button>
+            <button class="btn btn-danger btn-sm"> Show Answer  </button>
+            <button class="btn btn-info btn-sm"> Restart Game  </button>
+        </div>
+
+    </div>
+</div>
 
 </body>
 </html>
