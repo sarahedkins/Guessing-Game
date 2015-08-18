@@ -3,6 +3,46 @@
 
 body {
     padding-top: 70px;
+    background: cadetblue;
+}
+
+.container {
+    max-width: 800px;
+}
+
+/* Buttons
+ ================================== */
+
+.btn-default {
+    background: #D4B06A;
+    border-color: whitesmoke;
+
+ }
+
+.btn-default:hover {
+    background: #FFE2AA;
+}
+
+.btn-primary {
+    background: #A8383B;
+    border-color: whitesmoke;
+
+}
+
+.btn-primary:hover {
+    background: #D3696C;
+}
+
+/* Typography
+ ================================== */
+
+h1 {
+    font-family: 'Lobster', cursive;
+}
+
+#content_well p {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 12px;
 }
 
 /* Wells
@@ -10,8 +50,24 @@ body {
 
 #guess_well {
     width: 25%;
+    height: 180px;
+    margin-right: 20px;
+    min-width: 180px;
 }
 
 #options_well {
-    width: 75%;
+    width: 68%;
+    height: 180px;
+}
+
+#content_well {
+    margin-top: 15px;
+    max-width: 100%;
+}
+
+/* Jumbotron
+ ================================== */
+
+.jumbotron {
+    width: 95%;
 }
