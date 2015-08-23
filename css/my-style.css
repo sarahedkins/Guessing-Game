@@ -6,6 +6,14 @@ body {
     background: cadetblue;
 }
 
+body.won {
+    background: pink;
+}
+
+body.lost {
+    background: darkgray;
+}
+
 .container {
     max-width: 1000px;
 }
@@ -16,11 +24,26 @@ body {
 .btn-default {
     background: #D4B06A;
     border-color: black;
-
  }
 
-.btn-default:hover {
+.won .btn-default {
+    background: lightcoral;
+}
+
+.lost .btn-default {
+    background: #A0615F;
+}
+
+.btn-default:hover, .btn-default:active {
     background: #FFE2AA;
+}
+
+.won .btn-default:hover, .won .btn-default:active {
+    background: lightseagreen;
+}
+
+.lost .btn-default:hover {
+    background: #9f95a9;
 }
 
 .btn-primary {
@@ -69,6 +92,14 @@ body {
     padding: 18px;
 }
 
+.won .theme-border {
+    background: peachpuff;
+}
+
+.lost .theme-border {
+    background: darkslategrey;
+}
+
 #guess-box {
     width: 18%;
     min-width: 180px;
@@ -76,6 +107,25 @@ body {
     margin-top: 50px;
     margin-right: auto;
     margin-left: 30px;
+}
+
+.won #guess-box, .lost #guess-box {
+    display: none;
+}
+
+#won-image {
+    font-size: 8em;
+    text-align: center;
+    margin-top: 20px;
+    color: lightseagreen;
+    display: none;
+}
+
+#lost-image {
+    font-size: 8em;
+    text-align: center;
+    margin-top: 20px;
+    color: #9f95a9;
 }
 
 #content-box {
@@ -95,6 +145,10 @@ body {
 
 #progress-bar {
     margin: 25px;
+}
+
+.won #progress-bar, .lost #progress-bar {
+    display: none;
 }
 
 /* Jumbotron
