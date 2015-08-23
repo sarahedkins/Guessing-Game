@@ -118,6 +118,9 @@ body.lost {
     text-align: center;
     margin-top: 20px;
     color: lightseagreen;
+}
+
+.lost #won-image, .playing #won-image {
     display: none;
 }
 
@@ -126,6 +129,10 @@ body.lost {
     text-align: center;
     margin-top: 20px;
     color: #9f95a9;
+}
+
+.won #lost-image, .playing #lost-image {
+    display: none;
 }
 
 #content-box {
