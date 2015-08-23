@@ -7,7 +7,7 @@ body {
 }
 
 .container {
-    max-width: 800px;
+    max-width: 1000px;
 }
 
 /* Buttons
@@ -15,7 +15,7 @@ body {
 
 .btn-default {
     background: #D4B06A;
-    border-color: whitesmoke;
+    border-color: black;
 
  }
 
@@ -25,49 +25,138 @@ body {
 
 .btn-primary {
     background: #A8383B;
-    border-color: whitesmoke;
-
+    border-color: black;
 }
 
 .btn-primary:hover {
     background: #D3696C;
 }
 
+.width-115px {
+    width: 115px;
+    display: inline-block;
+}
+
+.btn-margin {
+    margin: 1px;
+}
+
+.option-buttons {
+    padding: 5px;
+}
+
 /* Typography
  ================================== */
 
-h1 {
+.jumbotron h1 {
     font-family: 'Lobster', cursive;
+    margin-bottom: 30px;
+    color: #055AA5;
 }
 
-#content_well p {
+.content-well p {
     font-family: 'Work Sans', sans-serif;
     font-size: 12px;
 }
 
-/* Wells
+/* Content Areas
  ================================== */
 
-#guess_well {
-    width: 25%;
-    height: 180px;
-    margin-right: 20px;
+.theme-border {
+    border: 3px solid #055AA5;
+    border-radius: 25px;
+    background: cadetblue;
+    padding: 18px;
+}
+
+#guess-box {
+    width: 18%;
     min-width: 180px;
+    height: 100%;
+    margin-top: 50px;
+    margin-right: auto;
+    margin-left: 30px;
 }
 
-#options_well {
-    width: 68%;
-    height: 180px;
+#content-box {
+    width: 70%;
+    min-width: 540px;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-#content_well {
+.content-well {
     margin-top: 15px;
-    max-width: 100%;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#progress-bar {
+    margin: 25px;
 }
 
 /* Jumbotron
  ================================== */
 
 .jumbotron {
-    width: 95%;
+    width: 100%;
+    border: 4px inset #055AA5;
+    border-radius: 25px;
+}
+
+/* Media Queries
+ ================================== */
+
+@media (max-width: 991px) {
+    .jumbotron {
+        padding: 30px;
+    }
+    body {
+        padding-top: 10px;
+    }
+    .jumbotron h1 {
+        margin-bottom: 10px;
+        margin-top: -10px;
+        text-align: center;
+    }
+    .btn-margin{
+        margin-bottom: 2px;
+        height: 45px;
+    }
+    .theme-border {
+        padding: 5px;
+    }
+    .content-well {
+        width: 100%;
+    }
+    #content-box{
+        min-width: 0px;
+        width: 100%;
+        padding: 0px;
+    }
+    #guess-btn {
+        margin-left: auto;
+        margin-right: auto;
+        height: 72px;
+        width: 100%;
+        margin-bottom: -30px;
+    }
+    #guess-box {
+        width: 18%;
+        min-width: 180px;
+        height: 100%;
+        margin-bottom: 50px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    #progress-bar {
+        margin: 10px;
+        margin-bottom: -20px;
+    }
+    #display-text {
+        margin-bottom: -20px;
+        width: 250px;
+    }
 }
