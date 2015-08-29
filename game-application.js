@@ -23,8 +23,10 @@ $(document).ready(function(){
         else {
             textToDisplay = "Your guess history: ";
             for (var i = 0; i < guess_history.length; i++){
-                textToDisplay += guess_history[i];
-                textToDisplay += ", ";
+                textToDisplay += guess_history[i].guess;
+                textToDisplay += " - ";
+                textToDisplay += guess_history[i].temp;
+                textToDisplay += "; ";
             }
             textToDisplay = textToDisplay.slice(0, textToDisplay.length - 2);
         }
@@ -44,83 +46,118 @@ $(document).ready(function(){
         turns_left = 5;
         textToDisplay = restart_msg;
         $("#display-text").text(textToDisplay);
+        $("#game-status").removeClass("lost");
+        $("#game-status").removeClass("won");
+        $("#game-status").addClass("playing");
+        // TODO Reset progress bar
     });
 
 //  INPUT FORM ##################################################
     $("#guess-btn").on('click', function(){
+    // TODO Make [ENTER] also work to submit value
         var guess = $("#inputNum").val();
-        turns_left--;
-
-        if (guess === answer) {
-            textToDisplay = won_msg;
-            $("#display-text").text(textToDisplay);
-            $(".playing").changeClass(".won");
+        var guess_obj = {
+            guess: guess,
+            temp: "starting temp"
         }
 
-        else if (turns_left === 0) {
-            textToDisplay = lost_msg;
-            $("#display-text").text(textToDisplay);
-            $(".playing").changeClass(".lost");
-        }
+        // Validate input for number between 1 - 100, & not previously guessed
+        if (notGuessedYet(guess, guess_history) && validNumber(guess)) {
 
-        // function to determine hot/warm/chilly/cold
-        else {
+            turns_left--;
 
-            if (guess_history.length === 0){
-                textToDisplay = determineTemp(answer, guess);
+            if (guess == answer) {
+                textToDisplay = won_msg;
                 $("#display-text").text(textToDisplay);
+                $("#game-status").addClass("won");
+                $("#game-status").removeClass("playing");
             }
 
+            else if (turns_left === 0) {
+                textToDisplay = lost_msg;
+                $("#display-text").text(textToDisplay);
+                $("#game-status").addClass("lost");
+                $("#game-status").removeClass("playing");
+            }
+
+            // determine starting temperature
             else {
-                textToDisplay = hotterColder(answer, guess, guess_history[guess_history.length - 1]);
+
+                if (guess_history.length === 0){
+                    textToDisplay = higherLower(answer, guess);
+                    $("#display-text").text(textToDisplay);
+                }
+            // or check temperature based on previous guess
+                else {
+                    textToDisplay = "You guessed ";
+                    textToDisplay += guess;
+                    textToDisplay += ". ";
+
+                    if (hotterColder(answer, guess, guess_history[guess_history.length - 1].guess)){
+                        textToDisplay += warm_msg;
+                        guess_obj.temp = "hotter";
+                        textToDisplay += higherLower(answer, guess);
+                    }
+                    else {
+                        textToDisplay += chilly_msg;
+                        guess_obj.temp = "colder";
+                        textToDisplay += higherLower(answer, guess);
+                    }
+                    $("#display-text").text(textToDisplay);
+                }
+
+            }
+            guess_history.push(guess_obj);
+            // TODO Update progress bar
+        }
+        else {
+            if (!validNumber(guess)) {
+                textToDisplay = invalid_num_msg;
                 $("#display-text").text(textToDisplay);
             }
-
+            else {
+                textToDisplay = previous_guessed_msg;
+                $("#display-text").text(textToDisplay);
+            }
         }
-        guess_history.push(guess);
     });
 
 });
 
-var determineTemp = function(ans, guess) {
-    // Do not call this function if ans === guess.
-    // Determines whether a guess is hot/warm/chilly/cold.
-    var diff = Math.abs(ans - guess);
+//  HELPER FUNCTIONS ##############################################
 
-    if (diff <= 10 ) {
-        return hot_msg;
+var higherLower = function(ans, guess) {
+    // Determines whether next guess should be higher or lower.
+    if (guess < ans) {
+        return higher_msg;
     }
-    else if (diff >= 80) {
-        return cold_msg;
-    }
-    else return luke_warm_msg;
+    else return lower_msg;
 };
 
 var hotterColder = function(ans, guess, prev_guess) {
-    // Do not call this function if ans === guess, guess cannot === prev_guess
-    // Determines whether guess is closer to answer than previous guess.
+    // Determines whether guess is closer to answer than previous guess. Returns true for warmer, false for colder.
     if (Math.abs(ans - guess) < (Math.abs(ans - prev_guess))) {
-        if (textToDisplay === warm2_msg) {
-            return warm3_msg;
-        }
-        else if (textToDisplay === warm_msg){
-            return warm2_msg;
-        }
-        else {
-            return warm_msg;
-        }
+        return true;
     }
     else {
-        if (textToDisplay === chilly2_msg){
-            return chilly3_msg;
-        }
-        else if (textToDisplay === chilly_msg){
-            return chilly2_msg;
-        }
-        else {
-            return chilly_msg;
+        return false;
+    }
+}
+
+var notGuessedYet = function(guess, guess_array){
+    for (var i = 0; i < guess_array.length; i++){
+        if (guess_array[i].guess === guess) {
+            return false;
         }
     }
+    return true;
+}
+
+var validNumber = function(guess) {
+    if (guess <= 100 && guess >= 1) {
+        return true;
+    }
+    else return false;
 }
 
 
