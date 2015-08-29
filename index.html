@@ -9,8 +9,11 @@
     <link rel="stylesheet" href="css/my-style.css">
     <link rel="icon" href="images/qm.png" type="image/x-icon"/>
     <link href='http://fonts.googleapis.com/css?family=Lobster|Work+Sans' rel='stylesheet' type='text/css'>
-    
+    <script src="js/bundle.js"></script>
+    <script src="text.js"></script>
+    <script src="game-application.js"></script>
 </head>
+<!--jQuery Version of Guessing Game-->
 <body class="playing">
 <div class="container">
     <div class="jumbotron">
@@ -19,24 +22,23 @@
                 <div class="col-md-6 row text-center" id="content-box">
                                     <div class="row content-well">
                                           <div class="option-buttons">
-                                              <button class="btn btn-default btn-sm width-115px btn-margin">
+                                              <button class="btn btn-default btn-sm width-115px btn-margin" id="dir-btn">
                                                 <b class="glyphicon glyphicon-info-sign"></b> Directions
                                             </button>
-                                            <button class="btn btn-default btn-sm width-115px btn-margin">
+                                            <button class="btn btn-default btn-sm width-115px btn-margin" id="hist-btn">
                                                 <b class="glyphicon glyphicon-list-alt"></b> My Guesses
                                             </button>
-                                            <button class="btn btn-default btn-sm width-115px btn-margin">
+                                            <button class="btn btn-default btn-sm width-115px btn-margin" id="ans-btn">
                                                 <b class="glyphicon glyphicon-eye-open"></b> Show Answer
                                             </button>
-                                            <button class="btn btn-default btn-sm width-115px btn-margin">
+                                            <button class="btn btn-default btn-sm width-115px btn-margin" id="res-btn">
                                                 <b class="glyphicon glyphicon-refresh"></b> Restart Game
                                             </button>
                                           </div>
                                     </div>
                     <div class="well row content-well" id="display-text">
                         <p>
-                            This is where content messages will appear. <br>
-                            Try again. <br>
+                            This is where content messages will appear.
                         </p>
                     </div>
                 </div>
