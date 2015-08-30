@@ -46,19 +46,17 @@ $(document).ready(function(){
         turns_left = 5;
         textToDisplay = restart_msg;
         $("#display-text").text(textToDisplay);
-        $("#game-status").removeClass("lost");
-        $("#game-status").removeClass("won");
-        $("#game-status").addClass("playing");
+        $("#game-status").removeClass("lost").removeClass("won").addClass("playing");
         // TODO Reset progress bar
     });
 
 //  INPUT FORM ##################################################
-    $("#guess-btn").on('click', function(){
+    var submit_action = function(){
     // TODO Make [ENTER] also work to submit value
         var guess = $("#inputNum").val();
         var guess_obj = {
             guess: guess,
-            temp: "starting temp"
+            temp: ""
         }
 
         // Validate input for number between 1 - 100, & not previously guessed
@@ -67,24 +65,30 @@ $(document).ready(function(){
             turns_left--;
 
             if (guess == answer) {
+                guess_obj.temp = "SO HOT!";
                 textToDisplay = won_msg;
                 $("#display-text").text(textToDisplay);
-                $("#game-status").addClass("won");
-                $("#game-status").removeClass("playing");
+                $("#game-status").addClass("won").removeClass("playing");
             }
 
             else if (turns_left === 0) {
+                if (hotterColder(answer, guess, guess_history[guess_history.length - 1].guess)){
+                    guess_obj.temp = "Hot but not hot enough!";
+                }
+                else {
+                    guess_obj.temp = "ICE COLD!";
+                }
                 textToDisplay = lost_msg;
                 $("#display-text").text(textToDisplay);
-                $("#game-status").addClass("lost");
-                $("#game-status").removeClass("playing");
+                $("#game-status").addClass("lost").removeClass("playing");
             }
 
             // determine starting temperature
             else {
 
                 if (guess_history.length === 0){
-                    textToDisplay = higherLower(answer, guess);
+                    textToDisplay = firstTemp(answer, guess, guess_obj);
+                    textToDisplay += higherLower(answer, guess);
                     $("#display-text").text(textToDisplay);
                 }
             // or check temperature based on previous guess
@@ -109,6 +113,7 @@ $(document).ready(function(){
             }
             guess_history.push(guess_obj);
             // TODO Update progress bar
+
         }
         else {
             if (!validNumber(guess)) {
@@ -120,11 +125,38 @@ $(document).ready(function(){
                 $("#display-text").text(textToDisplay);
             }
         }
-    });
+    };
 
+// Handle clicks and [ENTER] key events
+    $(function() {
+        $("form").submit(function() { return false; });
+    });
+    $("#guess-btn").on('click', submit_action);
+    $(document).on('keydown', function(){
+        if (event.which == 13) {
+            submit_action();
+        }
+    });
 });
 
 //  HELPER FUNCTIONS ##############################################
+
+var firstTemp = function(ans, guess, obj) {
+    // Determines if first guess is hot (close to answer) or not. Sets object's temp.
+    var diff = Math.abs(ans - guess);
+    if (diff <= 10) {
+        obj.temp = "hot";
+        return hot_msg;
+    }
+    else if (diff <= 30) {
+        obj.temp = "lukewarm";
+        return luke_warm_msg;
+    }
+    else {
+        obj.temp = "cold";
+        return cold_msg;
+    }
+}
 
 var higherLower = function(ans, guess) {
     // Determines whether next guess should be higher or lower.
