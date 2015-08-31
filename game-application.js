@@ -3,6 +3,8 @@
  */
 var textToDisplay = directions;
 var turns_left = 5;
+var percent = 100;
+var reduce_percent = 100 / turns_left;
 
 $(document).ready(function(){
 
@@ -47,12 +49,12 @@ $(document).ready(function(){
         textToDisplay = restart_msg;
         $("#display-text").text(textToDisplay);
         $("#game-status").removeClass("lost").removeClass("won").addClass("playing");
-        // TODO Reset progress bar
+        percent = 100;
+        $(".progress-bar").css("width",  percent + '%').attr(aria-valuenow, turns_left);
     });
 
 //  INPUT FORM ##################################################
     var submit_action = function(){
-    // TODO Make [ENTER] also work to submit value
         var guess = $("#inputNum").val();
         var guess_obj = {
             guess: guess,
@@ -112,7 +114,9 @@ $(document).ready(function(){
 
             }
             guess_history.push(guess_obj);
-            // TODO Update progress bar
+            // Update progress bar
+            percent = percent - reduce_percent;
+            $(".progress-bar").css("width",  percent + '%').attr(aria-valuenow, turns_left);
 
         }
         else {
